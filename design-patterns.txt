@@ -1,0 +1,170 @@
+// factory
+
+interface Button 
+  render()
+  onClick()
+
+class WindowsButton implements Button
+  render() {
+    render windows style button
+  }
+  onClick() {
+    bind onclick to native OS
+  }
+
+class WebButton implements Button
+  render() {
+    render web style button
+  }
+  onClick() {
+    bind onclick to browser
+  }
+
+// singleton
+
+class Database {
+  instance;
+
+  private constructor() {}
+
+  public static getInstance() {
+    if(this.instance === null) {
+      return new Database();
+    } else {
+      return this.instance;
+    }
+  }
+  public query() {}
+}
+
+class Application {
+  main() {
+    const foo = Database.getInstance();
+    foo.query();
+    const bar = Database.getInstance();
+    bar.query();
+  }
+}
+
+// prototype
+
+class Shape {
+  x;
+  y;
+  constructor Shape()
+  abstract clone()
+}
+class Rectangle extends Shape {
+  height;
+  width;
+  constructor Rectangle()
+  clone() {
+    return new Rectangle(this)
+  }
+}
+class Circle extends Shape {
+  radius;
+  constructor Circle()
+  clone() {
+    return new Circle(this)
+  }
+}
+class Application {
+  main() {
+    const c = new Circle();
+    const anotherCircle = c.clone();
+  }
+}
+
+// builder
+
+interface Builder {
+  reset()
+  setTyres()
+  setEngine()
+  setSeats()
+}
+class CarBuilder {
+  car;
+  reset() {
+    this.car = new CarBuilder();
+  }
+  setTyres() {}
+  setEngine() {}
+  setSeats() {}
+  getProduct() {
+    const product = this.car;
+    this.reset();
+    return product;
+  }
+}
+class Director extends CarBuilder {
+  builder;
+  constructor Director()
+  createSportsCar() {
+    builder = this.reset();
+    builder.setSeats(2);
+    builder.setEngine(new SportsEngine());
+    builder.setTyres(4);
+  }
+}
+class Application {
+  main() {
+    const d = new Director;
+    d.createSportsCar();
+    d.getProduct();
+
+    const c = new CarBuilder();
+    c.setTyres(4);
+    c.setEngine(new EconomyEngine());
+    c.setSeats(4);
+  }
+}
+
+// adapter
+class RoundHole {
+  radius;
+  constructor RoundHole(radius) {
+    this.radius = radius;
+  }
+  fits(peg) {
+    return this.radius >= peg.getRadius();
+  }
+}
+class RoundPeg {
+  radius;
+  constructor RoundPeg(radius) {
+    this.radius = radius;
+  }
+  getRadius() {
+    return this.radius;
+  }
+}
+class SquarePeg {
+  width;
+  constructor SquarePeg(width) {
+    this.width = width;
+  }
+  getWidth() {
+    return this.width;
+  }
+}
+class SquarePegAdaptor extends RoundPeg {
+  peg;
+  constructor SquarePegAdaptor(peg) {
+    this.peg = peg;
+  }
+  getRadius() {
+    return peg.getWidth() * Math.sqrt(2) / 2;
+  }
+}
+class Application {
+  main() {
+    hole = new RoundHole(5)
+    const smallSquarePeg = new SquarePeg(3);
+    const smallSquarePegAdaptor = new SquarePegAdaptor(smallSquarePeg);
+    hole.fits(smallSquarePegAdaptor);
+  }
+}
+
+//

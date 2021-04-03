@@ -1,0 +1,103 @@
+// getting started
+2 packages required- webpack and webpack-cli --save-dev
+global command- npx webpack
+or in package.json- start: 'webpack'
+--config file webpack.config.js
+
+const path = require('path');
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+};
+
+
+// assest management
+module.exports = {
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
+    }
+}
+html-loader
+file-loader images and font
+csv-loader
+xml-loader
+different loaders need to be installed
+
+// output management
+module.exports = {
+    entry: {
+        app: './src/index.js',
+        print: './src/print.js
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'page title'
+        })
+    ]
+}
+html-webpack-template
+
+// development
+module.exports = {
+    mode: 'development',
+    devtool: 'inline-source-map
+}
+webpack --watch
+start: 'webpack-dev-server --open'
+module.exports = {
+    output: {
+        publicPath: '/'
+    }
+}
+const app = express();
+const config = require('./webpack.config.js');
+const compiler = webpack(config);
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+}));
+start: 'node server.js'
+
+// code splitting
+different modules
+module.exports = {
+    entry: {
+        index: './src/index.js',
+        another: './src/another.js'
+    }
+}
+manual dependency resolve
+module.exports = {
+    entry: {
+        index: {import: './src/index.js', dependOn: 'shared'},
+        another: {import: './src/another.js', dependOn: 'shared'},
+        lodash: 'lodash'
+    }
+}
+automatic resolve
+module.exports = {
+    entry: {
+        index: './src/index.js',
+        another: './src/another.js'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    }
+}
