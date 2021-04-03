@@ -1,0 +1,599 @@
+<script>
+	script body
+</script>
+<script src="main.js" />
+
+<head>
+	script1
+	script2
+</head>
+<body>
+	script3
+</body>
+all scripts in order
+
+"use strict"
+
+let name; // undefined
+name = "George"
+name = null;
+
+undefined, null, bigInt, Symbol, object, string, number, boolean
+
+typeof / typeof()
+
+alert("string") // undefined
+prompt("string", value) // value null ""
+confirm("string") // true/false
+
+implicit conversion
+"1" + 1 // 11
+"1" * 2 // 2
+ "" == false // true
+ "1" == false // false
+ null == undefined // true
+ 1 == true // true
+ ===
+
+explicit
++, Number(), parseInt(), parseFloat()
+String(), `${number}`
+Boolean, ><
+
+unary+ + - * / % ** += ++ -- << >>  & | ^ ~ >>> ,
+
+> < >= 
+
+if else ?
+
+&& || user || "george"
+
+?? user ?? "george"
+
+do while() while for for of
+
+switch case default break
+
+globalVar1
+function name(arg1, arg2) {
+	body
+	var1
+
+	function inner(arg3) {
+
+	}
+}
+
+lexical environment
+new on script start
+new on function execution start
+inner points to outer
+
+function and vars hoisting
+
+const name = function() {
+	body
+}
+
+() => {
+	body
+} no this
+
+// /* */ comments
+
+transpile polyfill
+
+
+var o = {
+	p1: v1,
+	p2: v2
+}
+
+garbage collected for things which cannot be refrenced
+
+Object.assign({}, o1, o2, o3)
+
+{ ...o1, ...o2 }
+
+var o = {
+	p1,
+	f1: function() {
+		this.p1
+	}
+}
+
+var o = new User();
+
+o?.p1?.p2
+
+const id = Symbol("id")
+Symbol.for("id")
+Symbol.get("id")
+
+[Object.toPrimitive](hint) {
+	hint- string number default
+}
+toString() {}
+valueOf() {}
+
+"george".toUpperCase() temporary object for primitive prototype
+
+isFinite() isNaN() Infinity - Infinity
+
+`${}` indexOf lastIndexOf toUpperCase toLowerCase substr slice splice
+
+const a = new Array(100) a.length 101
+a[200] = "a" a.length 201
+
+push pop shift unshift forEach map some each filter find findIndex
+
+iterable 
+Object that can be used in for of
+result of obj[Symbol.iterator]() is iterator
+iterator should have a function next which should return object { done: true/false, value }
+let range = {
+	from: 1,
+	to: 5,
+	[Symbol.iterator]() {
+		this.current = this.from;
+		return this;
+	},
+	next() {
+		if(this.current <= this.to) return { done: false, value: this.current },
+		else return { done: true }
+	}
+}
+
+key can be object
+const m = new Map() set(key, value) get(key) has(key) delete(key) clear() size
+const s = new Set() set(key, value) get(key) has(key) delete(key) clear() size
+
+key gets can only be object, cannot get all keys or values or entries, 
+const secondary = new WeakMap()
+const secondary = new WeakSet() 
+
+Object.keys() Object.values() Object.entries()
+
+const { prop: [renameProp] = [defaultValue] } = object;
+const [ one, , three] = array
+
+date converted to milliseconds from 1 Jan 1970
+can be added subtracted
+
+JSON.stringify(object)
+JSON.parse(string)
+toJSON()
+
+stack limit 100000
+
+function(...rest) [one, ...rest] = array {one, ...rest} = object
+[...spread] {...spread}
+
+closure global, outer args, outer vars, inner args, inner vars
+
+functional scoped var
+
+window, globalThis
+
+typeof function // function
+object 
+name // name of function
+length // number of arguments
+custom props // which are visble outside
+const func = function nfe() {}
+
+const func = new Function([arg1, arg2, ...argN], functionBody)
+lexical environment is global
+
+setTimeout(func|code, [delay], [arg1, arg2, ...argN])
+setInterval(func|code, [delay], [arg1, arg2, ...argN])
+return number on client object on server
+clearTimeout clearInterval
+Nested setTimeout allows to set the delay between the executions more precisely than setInterval
+func is remembered in scheduler and its lexical env is global so it takes memory, clear unused timeouts and intervals
+0 delay or no delay - as soon as possible, but after the current script is complete 
+
+func.call(context, arg1,arg2, ...argN)
+func.apply(context, [arg1, arg2, ...argN])
+let wrapper = function() {
+	return original.apply(this, args)
+}
+spy, caching, delaying, debounce, throtlle decorators
+
+func.bind(context, arg1, arg2, ...argN)
+function sum(a, b) {
+	return a + b;
+}
+const double = sum.bind(null, 2); // double is a partial fucntion
+
+() => {} () => ({}) 
+no this, no new, no super, no arguments // default prop of a function
+
+property flags
+writable ? can be changed : read only
+enumerable ? listed in loops : not listed in loops
+configurable ? can be deleted and these props modified : not
+Object.getOwnPropertyDescriptor(obj, prop)
+Object.getOwnPropertyDescriptors(obj)
+Object.defineProperty(obj, { value, writable, enumerable, configurable }) // by default all false
+Object.defineProperties(obj, { prop1: {}, ...propN: {} })
+Object.preventExtensions(obj)
+Object.seal(obj)
+Object.freeze(obj)
+Object.isExtensible(obj)
+Object.isSealed(obj)
+Object.isFrozen(obj)
+
+let obj = {
+	get name() {}
+	set name(value) {}
+}
+Object.defineProperty(obj, prop1: { get(), set(), writable, enumerable, configurable })
+_name as internal prop
+
+[[Prototype]] internal property 
+__proto__ accessor
+can read, cannot write or delete
+__proto__ is object always
+rabbit -> animal (prototype)
+this is always object before the dot irrespective of prototype
+
+Rabbit.prototype = Animal // when new rabbit is created assign animal to its [[Prototype]]
+function Rabit() {} Rabit.prototype.constructor // Rabbit
+
+Object -> Object.prototype
+Rabbit.toString() // picks prop from Object.prototype
+let arr = []
+arr.__proto__ // Array.prototype
+arr.__proto__.__proto__ // Object.prototype
+undefined, null dont have wrappers
+String.prototype.show = function() {}
+
+Object.create(proto, [descriptors])
+Object.getPrototypeOf(obj)
+Object.setPrototypeOf(obj, proto)
+
+class MyClass {
+	prop = value;
+	constructor(prop) { this.prop = prop }
+	get something() {}
+	set something() {}
+	method() {}
+}
+const ob = new MyClass(prop)
+MyClass(prop) // error
+class methods non-enumerable
+const user = class {}
+typeof MyClass // function
+
+class Rabit extends Animal {
+	constructor(props) {
+		super(prop1);
+		this.prop2 = props.prop2;
+	}
+	method() {
+		super.AnimalMethod();
+	}
+}
+Rabbit.prototype.__proto__ = Animal.protoype
+
+class Article {
+	static publisher;
+	static compare() {}
+}
+Article.publisher Article.compare
+static prop and methods are inherited
+static exist on class instead of instance
+
+public accessible everywhere
+protected accessible within class and in inherited
+private accessible within class
+class MyClass {
+	constructor(power) {
+		this._power = power;
+	}
+	get waterAmount() { // protected
+		return this._waterAmount;
+	}
+	set waterAmount(value) {
+		this._waterAmount = value;
+	}
+	get power() { // readonly
+		return this._power;
+	}
+}
+_ protected not implemented by language
+# private implemented by language
+
+class PowerArray extends Array {
+	static isEmpty() {
+		return this.length == 0;
+	}
+	static get [Symbol.species]() {
+		return Array;
+	}
+}
+const a = new PowerArray(1, 2, 3, 4, 5);
+a.constructor == PowerArray
+no static inheritence for built in classes
+
+obj instance of class
+
+Mixin for multiple inheritance
+let eventMixin = {
+	on(eventName, handler) {
+		if(!this._eventHandler) this._eventHandler = {};
+		if(!this._eventHandler[eventName]) this._eventHandler[eventName] = [];
+		this._eventHandler[eventName].push(handler)
+	},
+	off(eventName, handler) {},
+	trigger() {}
+}
+
+try {
+	// some code
+} catch(err) {
+	// error handler
+} finally {
+	// runs in both cases
+}
+runtime synchronous code
+setTimeout(function() {
+	try { } 
+	catch(err) { }
+}, 1000)
+err { name, message, stack }
+catch can be without ()
+new Error(message)
+new SyntaxError(message)
+new ReferenceError(message)
+throw error
+
+class Error {
+	constructor(message) {
+		this.message = message;
+		this.name = "Error";
+		this.stack = <call stack>;
+	}
+}
+class ValidationError extends Error {
+	constructor(message) {
+		super(message);
+		this.name = "ValidationError";
+	}
+}
+
+callback function called after asynchronous code
+function loadScript(script, callback) {
+	const script = document.createElement("script");
+	script.src = script;
+	script.onLoad(() => callback(null, script));
+	script.onError((err) => callback(err));
+	document.head.append(script);
+}
+loadScript("script1.js", function(err, script) {
+	if(err) {}
+	else {
+		loadScript("script2.js", function(err, script) {}
+	}
+})
+
+const p = new Promise(function(resolve, reject) {
+	resolve("done");
+})
+.then(result => {}, err => {})
+.catch(err => {})
+.finally(() => {})
+function loadScript(script) {
+	return new Promise(function(resolve, reject) {
+		const script = document.createElement("script");
+		script.src = script;
+		script.onLoad(() => resolve(script));
+		script.onError((err) => reject(err));
+		document.head.append(script);
+	})
+}
+
+const p1 = new Promise(function(resolve, reject) {})
+p1.then(result => result * 2)
+.then(result => result) // chain
+const p2 = new Promise(function(resolve, reject) {})
+p2.then(result => {})
+p2.then(result => {}) // multiple handlers
+fetch().then(result => result.json())
+
+new Promise((resolve, reject) => {}).then().then()
+.catch() // catches all errors in then also
+new Promise((resolve, reject) => {}).catch() // error handled
+.then() // then is executed
+.catch((err) => {
+	throw err
+})
+window.addEventListener("unhandledrejection", (event) => {
+	event.promise
+	event.reason
+})
+
+promisification converting function with callback to promise
+function promisify(f) {
+	return function(...args) {
+		function callback(error, result) {
+			if(error) reject(error);
+			else resolve(result);
+		}
+		args.push(callback);
+		return f.apply(this, args);
+	}
+}
+
+Promise.all([...promises]) // array of responses in order of input array, rejects if any 1 rejects
+Promise.allSettled([...promises]) // same as above but returns array of { status: "fulfilled/rejected", result: response/error}
+Promise.race([...promises]) // returns 1st completed promise resolved/rejected
+Promise.any([...promise]) // returns 1st fulfilled
+Promise.resolve(value) // converts non promise value to fulfilled promise
+Promise.reject(value) // converts non promise value to rejected promise
+all return promises
+if(!allSettled in Promise) {
+	Promise.allSettled = (promises) => {
+		const resolvedHandler = (value) => ({ status: "fulfilled", value });
+		const rejectedHandler = (reason) => ({ status: "rejected", reason });
+		const wrapperPromises = promises.map(p => p.resolve(p).then(resolvedHandler, rejectedHandler))
+		return Promise.all(wrapperPromises);
+	}
+}
+
+microtask queue
+
+async function f() {
+	return 1; // async function always returns promise
+}
+f.then()
+async function f() {
+	let p = new Promise();
+	const result = await p;
+	console.log(result);
+}
+try catch for error handling instead of catch because we are not using then and catch
+
+generator yield multiple values returns special generator object { value, done: true/false }
+function* generateSequence() {
+	yield 1;
+	yield 2;
+	return 3;
+}
+generator in iterable, return is not in for of
+let range = {
+	from: 1,
+	to: 5,
+	*[Symbol.iterator]() {
+		for(let i = this.from, i <= this.to, i++) {
+			yield i;
+		}
+	}
+}
+function* generateSequence(arg) {
+	const a = yield "2+2?";
+	alert(a);
+	const b = yield "3*3?";
+	alert(b);
+}
+generateSequence.next().value // 2+2?
+generateSequence.next(4) // 4
+
+amd, commonjs, umd, js modules
+module = file = script
+<script type="module"></script>
+always use script
+export things from module to import in other module // module level scope
+module code evaluated only once when imported
+import.meta { url }
+this is undefined
+deffered
+can be made async
+cors error if not same domain
+<script type="nomodule"></script> // executed if no module
+
+
+export let variable/function/class
+export default variable/function/class
+export { thing1, thing2 }
+import { thing1, thing2 } from "./sayHi.js"
+import thing from "./sayHi.js"
+import * as obj from "./sayHi.js"
+obj.thing1 obj.thing2
+import { thing1 as newThing1 } from "./sayHi.js"
+export { thing1 as newThing1 }
+export { thing1, thing2 } from "./sayHi.js"
+export { default as Thing } from "./sayHi.js"
+
+import reuire type="module", but import() does not
+let { thing1, thing2 } = await import("./sayHi.js")
+let { default: say } = await import('./say.js');
+import("./sayHi.js").then(module => {
+	let { thing1, thing2 } = module;
+})
+
+let user = {
+  name: "John",
+  _password: "***"
+};
+user = new Proxy(user, {
+	get(target, prop) {
+		if(prop.startsWith("_")) {
+			throw new Error("Access denied");
+		} else {
+			return Reflect.get(target, prop);
+		}
+	},
+	set(target, prop, value) {
+		if(prop.startsWith("_")) {
+			throw new Error("Access denied");
+		} else {
+			return Reflect.set(target, prop, value);
+		}
+	},
+	deleteProperty(target, prop) { // to intercept property deletion
+	    if (prop.startsWith('_')) {
+	      throw new Error("Access denied");
+	    } else {
+	      delete target[prop];
+	      return true;
+	    }
+	  },
+  	ownKeys(target) { // to intercept property list
+    	return Object.keys(target).filter(key => !key.startsWith('_'));
+  	}
+})
+let { proxy, revoke } = Proxy.revocable(target, handler)
+revoke() // removes link
+
+const result = eval(code)
+result is output of last statement
+code can be any js code
+can access outer variables
+can change outer variables
+has own lexical environment
+not good to use same local variables
+window.eval() // uses global env
+let f = new Function(localVariables, code)
+
+currying f(a, b, c) to f(a)(b)(c)
+function twoParameterCurry(f) {
+	return function(a) {
+		return function(b) {
+			return f(a, b)
+		}
+	}
+}
+function curry(f) {
+	return function curried(...args) {
+		if(args.length >= f.lenght) {
+			return f.apply(this, args);
+		} else {
+			return function(...args2) {
+				return curried.apply(this, args.concat(args2));
+			}
+		}
+	}
+}
+function log(date, level, message)
+log(new Date(), "DEBUG", "Test message");
+curriedLog = curry(log)
+logToday = curriedLog(new Date());
+logToday("DEBUG", message);
+debugToday = logToday("DEBUG");
+debugToday("Test message");
+
+reference type special internal return value
+obj.prop()
+. returns reference type
+(let a = obj.prop)() // doesnt work
+
+BigInt 
+10n means 10 in bigint
+new BigInt(10) // same
+new BigInt("10") // same
+maths operations do not mix number and bigInt
+comparsions work with both
+boolean also work
+JSBI is library if BigInt not supported 
