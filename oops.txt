@@ -1,0 +1,12 @@
+class- model a real world entity
+object- one instance of that real world entity
+member variables- what instance has
+member functions- what instance can do
+static variables- what entity has/what all instances have
+static functions- what entity can do/what all instances can do
+abstract functions- definition only
+abstract class- used for entities for which instance cannot be created, provide common functionalities, can have abstract or non abstract functions
+interface- for shared functionalities, does not have a "is-a" relationship, can have abstract functions only
+inheritance- "is-a" relationship, gets common functionality from parent
+composition- "has-a" relationship, gets functionality form any class
+polymorphism- same name different function
